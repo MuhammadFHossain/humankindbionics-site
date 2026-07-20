@@ -1,9 +1,9 @@
-/* Humankind Bionics — shared landing-page engine
- * One file drives every masked-brand page: price/copy A/B by URL param,
- * UTM capture, deposit + email wiring, and event tracking to GA4 + Plausible.
+/* Shared landing-page runtime
+ * Price and copy variants by URL parameter, attribution capture, deposit and
+ * email wiring, and event tracking to GA4, Plausible, and Meta.
  *
  * Each page defines window.HKB_CONFIG before loading this script. See README.md.
- * No build step, no dependencies. Safe to drop on GitHub Pages.
+ * No build step, no dependencies.
  */
 (function () {
   "use strict";

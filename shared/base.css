@@ -1,11 +1,10 @@
-/* Humankind Bionics — shared base stylesheet
- * Structure + components shared by every masked brand.
- * Each brand overrides the --brand-* variables in its own inline <style>,
- * so the pages share a skeleton but look like different companies.
+/* Shared base stylesheet
+ * Structure and components. Pages override the theme variables below in
+ * their own inline <style> block.
  */
 
 :root {
-  /* brands override these */
+  /* pages override these */
   --bg: #ffffff;
   --surface: #f6f4ef;
   --ink: #1a1a1a;
