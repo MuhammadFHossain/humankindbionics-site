@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Your reservation is confirmed</title>
+<meta name="description" content="Your refundable $100 deposit is confirmed and your place in the first batch is held." />
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../shared/base.css" />
+<style>
+  :root {
+    --bg: #ffffff;
+    --surface: #f4f6f8;
+    --ink: #1b2126;
+    --ink-soft: #55606a;
+    --accent: #2b2f36;
+    --accent-ink: #ffffff;
+    --line: #e2e7eb;
+    --font-head: "Inter", system-ui, sans-serif;
+    --font-body: "Inter", system-ui, sans-serif;
+  }
+  h1,h2 { letter-spacing: -0.02em; }
+  .check { width: 3.5rem; height: 3.5rem; border-radius: 50%; background: var(--accent); color: var(--accent-ink);
+           display: flex; align-items: center; justify-content: center; font-size: 1.75rem; margin: 0 auto 1.5rem; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <span class="brand">Reservation confirmed</span>
+    <a class="btn btn--ghost" href="mailto:contact@farhanhossain.com">Email us</a>
+  </div>
+</nav>
+
+<header class="section wrap center">
+  <div class="check" aria-hidden="true">&check;</div>
+  <p class="eyebrow" style="text-align:center">Deposit received</p>
+  <h1>You're reserved. Thank you.</h1>
+  <p class="lead">Your $100 deposit is confirmed and your place in the first batch is held. We've emailed your receipt. Your deposit stays fully refundable, any time before it ships.</p>
+</header>
+
+<section class="section section--tint">
+  <div class="wrap">
+    <h2 class="center">What happens next</h2>
+    <div class="steps" style="margin-top:2.5rem">
+      <div class="step"><div class="step__n">1</div><h3>We keep you posted</h3><p>You'll hear from us as sizing and durability testing finish. No spam, just real progress and honest dates.</p></div>
+      <div class="step"><div class="step__n">2</div><h3>We email before charging</h3><p>When your glove is ready, we email you before we charge the balance. There is no surprise charge.</p></div>
+      <div class="step"><div class="step__n">3</div><h3>It ships</h3><p>If the date moves, we email you a new one and you can cancel for a full refund with one reply.</p></div>
+    </div>
+
+    <div class="promise" style="margin-top:2.5rem">
+      <p><b>Changed your mind?</b> Email <a href="mailto:contact@farhanhossain.com">contact@farhanhossain.com</a> and we return your $100 within 5 business days. No reason needed, no friction. That promise is the whole point of a deposit instead of a pre-payment.</p>
+      <p><b>Questions about fit, timing, or whether this suits your hand?</b> A real person reads and answers every email. Ask us anything before it ships.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <p>© <span data-year>2026</span> · A passive functional aid, not a medical treatment. Deposits are refundable in full, any time.</p>
+    <p><a href="mailto:contact@farhanhossain.com">contact@farhanhossain.com</a></p>
+    <p class="legal-links">
+      <a href="../guarantee/">Money-back guarantee</a>
+      <a href="../privacy/">Privacy</a>
+      <a href="../terms/">Terms</a>
+      <a href="../support/">Support</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+  // Recover what the visitor actually saw on the landing page. sessionStorage survives
+  // the Stripe round-trip (same origin, same tab), so this beats trusting the URL alone.
+  // Must run BEFORE app.js, which resets these keys to this page's own defaults.
+  var HKB_PRIOR = {};
+  try { HKB_PRIOR = JSON.parse(sessionStorage.getItem("hkb_attr") || "{}") || {}; } catch (e) {}
+  var HKB_Q = new URLSearchParams(location.search);
+  var HKB_BRAND = HKB_Q.get("brand") || HKB_PRIOR.brand || "unknown";
+
+  window.HKB_CONFIG = {
+    brand: HKB_BRAND,
+    ga4Id: "G-XXXXXXXXXX",
+    metaPixelId: "XXXXXXXXXX",
+    plausibleDomain: "",
+    prices: { "0": { amount: 0, label: "", monthly: "" } },
+    defaultPrice: "0"
+  };
+</script>
+<script src="../shared/app.js"></script>
+<script>
+  // Fire the real conversion: a paid deposit. Guarded so a refresh or a back-button
+  // return can't double-count it and corrupt ad optimization.
+  (function () {
+    var key = "hkb_thanks_fired";
+    var already;
+    try { already = sessionStorage.getItem(key); } catch (e) { already = null; }
+    if (already) return;
+    try { sessionStorage.setItem(key, "1"); } catch (e) {}
+
+    var payload = {
+      brand: HKB_BRAND,
+      price_variant: HKB_PRIOR.price_variant || "unknown",
+      copy_variant: HKB_PRIOR.copy_variant || "unknown",
+      value: 100,
+      currency: "USD"
+    };
+    ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"].forEach(function (k) {
+      if (HKB_PRIOR[k]) payload[k] = HKB_PRIOR[k];
+    });
+
+    // GA4 + Plausible + Meta custom, via the shared tracker
+    if (typeof window.HKB_track === "function") window.HKB_track("deposit_complete", payload);
+
+    // Meta standard Purchase — this is what ad delivery optimizes toward
+    if (typeof window.fbq === "function") {
+      try {
+        window.fbq("track", "Purchase", {
+          value: 100,
+          currency: "USD",
+          content_category: payload.brand,
+          content_name: payload.price_variant + "_" + payload.copy_variant
+        });
+      } catch (e) {}
+    }
+  })();
+</script>
+</body>
+</html>

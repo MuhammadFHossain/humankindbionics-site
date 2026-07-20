@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+._*
+
+# editors
+.vscode/
+.idea/
+*.swp
+
+# local secrets / unshared service ids
+.env
+.env.*
+shared/config.local.js
+
+# operational tooling — lives in the private strategy repo, not here.
+# It enumerates every brand, which this repo should not advertise.
+wire.sh
+
+# scratch
+*.log
+tmp/
