@@ -386,7 +386,9 @@
     if (!foot) return;
 
     var base = CFG.legalBase || "../";
-    var email = CFG.contactEmail || "contact@farhanhossain.com";
+    // No hardcoded fallback address. wire.sh rewrites HTML only, so a default
+    // buried in this file would survive --contact and quietly outlive it.
+    var email = CFG.contactEmail || "";
     var here = CFG.brand;
     var from = attribution.brand;
     // Only offer the way back when the stored brand looks like a plain slug and
@@ -410,8 +412,12 @@
         : '<li><a href="' + base + p.slug + '/">' + p.label + '</a></li>';
     });
     h += '</ul>';
-    h += '<p class="sfoot__contact">Questions? <a href="mailto:' + email + '">' +
-         email + '</a>. A real person reads and answers.</p>';
+    // Omit the line entirely rather than render an empty mailto:, which would
+    // read as a broken promise on pages that say a real person answers.
+    if (email) {
+      h += '<p class="sfoot__contact">Questions? <a href="mailto:' + email + '">' +
+           email + '</a>. A real person reads and answers.</p>';
+    }
     h += '<p class="sfoot__fine">© <span data-year></span> · A grip aid, not a ' +
          'medical device. Not intended to diagnose, treat, cure, or prevent any disease ' +
          'or condition. Your deposit is fully refundable at any time before your order ships.</p>';
