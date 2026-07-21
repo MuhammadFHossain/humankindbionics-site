@@ -214,7 +214,11 @@
       });
 
       var endpoint = form.getAttribute("action");
-      var status = form.querySelector("[data-form-status]");
+      // Sibling, not descendant, on every page. Fall back to the section so a
+      // future layout change does not silently mute all feedback again.
+      var status = form.querySelector("[data-form-status]") ||
+                   (form.parentNode && form.parentNode.querySelector("[data-form-status]")) ||
+                   (form.closest("section") && form.closest("section").querySelector("[data-form-status]"));
 
       form.addEventListener("submit", function (e) {
         var emailField = form.querySelector('input[type="email"]');
@@ -228,19 +232,41 @@
           form.reset();
           return;
         }
-        // AJAX submit to keep the visitor on-page
+        // AJAX submit to keep the visitor on-page.
+        //
+        // Body is URLSearchParams, not FormData, for two reasons. FormData sends
+        // multipart/form-data, and Google Apps Script does not populate
+        // e.parameter from multipart bodies, so every field would arrive empty.
+        // And both encodings are CORS-safelisted, so neither triggers a preflight
+        // OPTIONS, which Apps Script does not answer at all.
         e.preventDefault();
-        var data = new FormData(form);
-        fetch(endpoint, { method: "POST", body: data, headers: { Accept: "application/json" } })
+        var body = new URLSearchParams();
+        new FormData(form).forEach(function (v, k) { body.append(k, v); });
+
+        function say(msg) {
+          if (status) { status.textContent = msg; status.hidden = false; }
+        }
+
+        fetch(endpoint, { method: "POST", body: body, headers: { Accept: "application/json" } })
           .then(function (r) {
-            if (status) {
-              status.textContent = r.ok ? "Thanks. You're on the list." : "Something went wrong. Try again.";
-              status.hidden = false;
-            }
-            if (r.ok) form.reset();
+            if (!r.ok) throw new Error("http " + r.status);
+            // Apps Script answers 200 with {ok:false} on its own failures, so the
+            // HTTP status alone is not enough to claim the address was saved.
+            return r.text().then(function (txt) {
+              var payload = null;
+              try { payload = JSON.parse(txt); } catch (err) { /* Formspree may not return JSON */ }
+              if (payload && payload.ok === false) throw new Error(payload.error || "rejected");
+              return true;
+            });
+          })
+          .then(function () {
+            say("Thanks. You're on the list.");
+            form.reset();
           })
           .catch(function () {
-            if (status) { status.textContent = "Network error. Try again."; status.hidden = false; }
+            // Never claim success we cannot verify. Someone who thinks they are on
+            // the list and is not will not come back a second time.
+            say("That did not save. Try again, or email us and we will add you.");
           });
       });
     });
