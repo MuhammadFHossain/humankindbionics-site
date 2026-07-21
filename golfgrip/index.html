@@ -30,7 +30,7 @@
 <nav class="nav">
   <div class="nav__inner">
     <span class="brand"><span class="brand__dot"></span> GolfGrip</span>
-    <a class="btn btn--ghost" href="#reserve">Reserve one</a>
+    <a class="btn btn--ghost" href="#reserve">Join the waitlist</a>
   </div>
 </nav>
 
@@ -52,7 +52,7 @@
         <b>Lighter grip</b><span class="muted">it holds the club with less hand force, so your joints take less</span>
       </div>
       <div class="btn-row" style="margin-top:1.8rem">
-        <a class="btn btn--primary btn--big" href="#reserve" data-deposit="hero">Reserve one ($100 refundable)</a>
+        <a class="btn btn--primary btn--big" href="#reserve" data-cta="hero">Join the waitlist</a>
         <a class="btn btn--ghost" href="#how">See how it works</a>
       </div>
     </div>
@@ -60,6 +60,7 @@
       <img src="at-address.webp" alt="A gloved hand holding a golf club on a course. The white leather glove has a dial at the wrist."
            width="1220" height="1023" decoding="async" fetchpriority="high" />
     </div>
+      <p class="render-note">Concept render. The production glove may differ.</p>
   </div>
 </header>
 
@@ -102,7 +103,7 @@
 <section class="section" id="reserve" data-section="reserve">
   <div class="wrap">
     <div class="offer">
-      <p class="eyebrow" style="justify-content:center">Reserve one from the first batch</p>
+      <p class="eyebrow" style="justify-content:center">Join the waitlist</p>
       <h2>One price. You own it.</h2>
       <p class="offer__price" data-price>$399</p>
       <p class="offer__note">You pay once. <span data-price-monthly>$34/mo</span> with a payment plan. About what it costs to regrip a full set, but it adds real strength.</p>
@@ -113,13 +114,15 @@
         <li>Leather, with a dial at the wrist</li>
         <li>No battery, no subscription</li>
       </ul>
-      <div>
-        <a class="btn btn--primary btn--big" href="#" data-deposit="offer">Reserve one with a $100 refundable deposit</a>
-      </div>
-      <p class="deposit-note">The $100 holds your place and comes off the price. You can get it back any time. Email us and we return it within 5 business days. If we do not ship, you get all of it back.</p>
-      <hr style="border:none;border-top:1px solid var(--line);margin:2rem 0" />
-      <p style="margin-bottom:.8rem"><b>Not ready to reserve? Get the email instead.</b></p>
+      <p class="deposit-note">No payment today. This is a concept in development, and we are finding out who wants it before we build it. Join the waitlist and we will show you the real thing first, with sizing, before anyone is asked for anything.</p>
+      <p style="margin-bottom:.8rem"><b>Tell us where to reach you.</b></p>
       <form class="emailform" style="margin:0 auto;justify-content:center" data-email-form="offer" action="https://formspree.io/f/XXXXXXXX" method="POST">
+        <label style="display:block;margin:0 0 .9rem;font-size:.95rem">Which hand?
+          <select name="hand" required aria-label="Which hand" style="display:block;margin-top:.35rem;padding:12px 14px;border-radius:999px;border:1px solid var(--line);font:inherit;background:var(--bg);color:var(--ink);min-width:220px">
+            <option value="">Choose one</option>
+            <option>Left</option><option>Right</option><option>Both</option>
+          </select>
+        </label>
         <input type="email" name="email" placeholder="you@email.com" required aria-label="Email address" />
         <button class="btn btn--ghost" type="submit">Email me</button>
       </form>
@@ -138,7 +141,7 @@
       <p><b>It does more than bigger grips.</b> Bigger grips make the club easier to hold but add no strength. GolfGrip holds part of the grip for you, so the club stays steady when your hands tire.</p>
       <p><b>It is for casual and practice rounds.</b> It is not allowed in tournament or handicap play under the Rules of Golf, because it assists your grip. For your weekend round and the range, it is just a glove.</p>
       <p><b>It helps on bad days.</b> On the days your hands would keep you home, the glove holds enough of the grip to get you through the round.</p>
-      <p><b>The deposit is fully refundable.</b> The $100 holds your place and comes off the price. You can get all of it back any time. Email us and we return it within 5 business days.</p>
+      <p><b>Nothing is being sold here yet.</b> There is no payment and no card field on this page. We are finding out who wants this before we build it. If you join the waitlist we will show you the finished glove and a real price first, and only then does anyone decide anything.</p>
     </div>
   </div>
 </section>
@@ -154,8 +157,8 @@
 </footer>
 
 <div class="sticky-cta">
-  <span><b data-price>$399</b> · <span class="muted">$100 deposit</span></span>
-  <a class="btn btn--primary" href="#reserve" data-deposit="sticky">Reserve one</a>
+  <span><b data-price>$399</b> · <span class="muted">no payment today</span></span>
+  <a class="btn btn--primary" href="#reserve" data-cta="sticky">Join the waitlist</a>
 </div>
 
 <script>

@@ -186,6 +186,18 @@
     });
   }
 
+  // ---- waitlist CTAs ---------------------------------------------------
+  // Phase one is email only, so these scroll to the form rather than leaving
+  // for a checkout. Tracked separately from deposit_click so the two phases
+  // stay comparable rather than blurring into one funnel metric.
+  function wireCta() {
+    document.querySelectorAll("[data-cta]").forEach(function (el) {
+      el.addEventListener("click", function () {
+        track("waitlist_click", { location: el.getAttribute("data-cta") || "cta" });
+      });
+    });
+  }
+
   // ---- email capture (Formspree AJAX) ---------------------------------
   function wireEmail() {
     var forms = document.querySelectorAll("form[data-email-form]");
@@ -310,18 +322,18 @@
   function reservationSection(ship) {
     return '' +
     '<section class="section" data-section="reservation"><div class="wrap">' +
-      '<p class="eyebrow center" style="text-align:center">How the reservation works</p>' +
-      '<h2 class="center">Reserve now. Pay the rest later.</h2>' +
+      '<p class="eyebrow center" style="text-align:center">Where this actually is</p>' +
+      '<h2 class="center">A concept, being tested honestly.</h2>' +
       '<div class="steps" style="margin-top:2.5rem">' +
-        '<div class="step"><div class="step__n">1</div><h3>Pay a $100 deposit</h3><p>It holds your place in the first batch and comes off the price. It is fully refundable, any time.</p></div>' +
-        '<div class="step"><div class="step__n">2</div><h3>We email you first</h3><p>When your glove is ready, we email you before we charge the rest. There is no surprise charge.</p></div>' +
-        '<div class="step"><div class="step__n">3</div><h3>It ships</h3><p>We expect the first gloves to ship in ' + ship + '. If that changes, we email you a new date and you can cancel for a full refund.</p></div>' +
+        '<div class="step"><div class="step__n">1</div><h3>You join the waitlist</h3><p>No payment, no card, no commitment. You are telling us this is worth building, which is the thing we are trying to find out.</p></div>' +
+        '<div class="step"><div class="step__n">2</div><h3>We show you the real one</h3><p>When there is a finished glove and a real price, you see it before anyone else, with photographs of the actual product rather than concept images.</p></div>' +
+        '<div class="step"><div class="step__n">3</div><h3>Then you decide</h3><p>Only at that point does anyone ask you for anything. We expect the first gloves in ' + ship + '. If that moves, we tell you.</p></div>' +
       '</div>' +
       '<div class="promise">' +
-        '<p><b>Our promise.</b> Before it ships, your $100 deposit is fully refundable, any time, for any reason. Email us and we return it within 5 business days. After it arrives, try it for 30 days. If it does not help, send it back in usable condition and we refund what you paid.</p>' +
-        '<p><b>You are not charged the full price today.</b> Today you pay only the $100 refundable deposit. We charge the rest only when your glove is ready to ship, and we email you first.</p>' +
-        '<p><b>Honest about the risks.</b> This is real hardware. The most likely risk is a delay, because parts and manufacturing can slip. If the date moves, we email you a new one and you can cancel for a full refund. We are also still doing sizing and durability testing. Because your deposit is refundable, you are never locked in while we finish the work.</p>' +
-        '<p><b>Secure checkout.</b> Payments are handled by Stripe, the same system used by millions of businesses. We never see or store your full card number.</p>' +
+        '<p><b>Being straight with you about the stage.</b> This is a working prototype with a filed patent, not a finished product on a shelf. The images on this page are concept renders. We are running this page to learn whether people with this specific problem want it enough to build it for them first.</p>' +
+        '<p><b>Nothing is being sold here today.</b> There is no checkout, no deposit, and no card field. Joining the waitlist costs you an email address and tells us which of these problems is the one worth solving.</p>' +
+        '<p><b>Honest about the risks.</b> This is real hardware. The most likely risk is a delay, because parts and manufacturing slip. We are also still doing sizing and durability testing. Because we are not taking your money, you are risking nothing while we finish the work.</p>' +
+        '<p><b>Your email, plainly.</b> We use it to tell you about this product and nothing else. We do not sell it. One click unsubscribes you.</p>' +
       '</div>' +
     '</div></section>';
   }
@@ -334,9 +346,9 @@
     var hero = document.querySelector(".hero");
     if (hero && !document.querySelector(".trustbar")) {
       var tb = makeEl('<div class="trustbar"><div class="trustbar__inner">' +
-        '<span><b>Fully refundable</b> deposit</span>' +
-        '<span>You are <b>not charged the full price</b> today</span>' +
-        '<span>Secure checkout by <b>Stripe</b></span>' +
+        '<span><b>No payment</b> today</span>' +
+        '<span>A <b>concept in development</b>, not yet shipping</span>' +
+        '<span>We show you the <b>real thing first</b></span>' +
         '</div></div>');
       hero.parentNode.insertBefore(tb, hero.nextSibling);
     }
@@ -431,6 +443,7 @@
     injectSharedFooter();
     applyVariants();
     wireDeposit();
+    wireCta();
     wireEmail();
     wireScroll();
     wireSections();

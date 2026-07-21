@@ -29,7 +29,7 @@
 <nav class="nav">
   <div class="nav__inner">
     <span class="brand"><span class="brand__dot"></span> TennisGrip</span>
-    <a class="btn btn--ghost" href="#reserve">Reserve one</a>
+    <a class="btn btn--ghost" href="#reserve">Join the waitlist</a>
   </div>
 </nav>
 
@@ -51,7 +51,7 @@
         <b>Lighter grip</b><span class="muted">the glove holds the racket, so your elbow and forearm take less</span>
       </div>
       <div class="btn-row" style="margin-top:1.8rem">
-        <a class="btn btn--primary btn--big" href="#reserve" data-deposit="hero">Reserve one ($100 refundable)</a>
+        <a class="btn btn--primary btn--big" href="#reserve" data-cta="hero">Join the waitlist</a>
         <a class="btn btn--ghost" href="#how">See how it works</a>
       </div>
     </div>
@@ -59,6 +59,7 @@
       <img src="court-grip.webp" alt="A gloved hand gripping a tennis racket on a court."
            width="1260" height="1056" decoding="async" fetchpriority="high" />
     </div>
+      <p class="render-note">Concept render. The production glove may differ.</p>
   </div>
 </header>
 
@@ -101,7 +102,7 @@
 <section class="section" id="reserve" data-section="reserve">
   <div class="wrap">
     <div class="offer">
-      <p class="eyebrow" style="justify-content:center">Reserve one from the first batch</p>
+      <p class="eyebrow" style="justify-content:center">Join the waitlist</p>
       <h2>One price. You own it.</h2>
       <p class="offer__price" data-price>$349</p>
       <p class="offer__note">You pay once. <span data-price-monthly>$29/mo</span> with a payment plan. Less than a season of braces and treatment.</p>
@@ -112,13 +113,15 @@
         <li>Light, with a dial at the wrist</li>
         <li>No battery, no subscription</li>
       </ul>
-      <div>
-        <a class="btn btn--primary btn--big" href="#" data-deposit="offer">Reserve one with a $100 refundable deposit</a>
-      </div>
-      <p class="deposit-note">The $100 holds your place and comes off the price. You can get it back any time. Email us and we return it within 5 business days. If we do not ship, you get all of it back.</p>
-      <hr style="border:none;border-top:1px solid var(--line);margin:2rem 0" />
-      <p style="margin-bottom:.8rem"><b>Not ready to reserve? Get the email instead.</b></p>
+      <p class="deposit-note">No payment today. This is a concept in development, and we are finding out who wants it before we build it. Join the waitlist and we will show you the real thing first, with sizing, before anyone is asked for anything.</p>
+      <p style="margin-bottom:.8rem"><b>Tell us where to reach you.</b></p>
       <form class="emailform" style="margin:0 auto;justify-content:center" data-email-form="offer" action="https://formspree.io/f/XXXXXXXX" method="POST">
+        <label style="display:block;margin:0 0 .9rem;font-size:.95rem">Which hand?
+          <select name="hand" required aria-label="Which hand" style="display:block;margin-top:.35rem;padding:12px 14px;border-radius:999px;border:1px solid var(--line);font:inherit;background:var(--bg);color:var(--ink);min-width:220px">
+            <option value="">Choose one</option>
+            <option>Left</option><option>Right</option><option>Both</option>
+          </select>
+        </label>
         <input type="email" name="email" placeholder="you@email.com" required aria-label="Email address" />
         <button class="btn btn--ghost" type="submit">Email me</button>
       </form>
@@ -137,7 +140,7 @@
       <p><b>It is not a tennis elbow cure.</b> It helps you keep a lighter grip, which is the strain we are trying to take off your hand. It eases the cause. It is not a treatment.</p>
       <p><b>It works for pickleball and padel too.</b> Any racket or paddle sport where a hard grip wears you down.</p>
       <p><b>It is allowed for club and rec play.</b> For club and rec play it is just a glove. For sanctioned events, check your competition's equipment rules.</p>
-      <p><b>The deposit is fully refundable.</b> The $100 holds your place and comes off the price. You can get all of it back any time. Email us and we return it within 5 business days.</p>
+      <p><b>Nothing is being sold here yet.</b> There is no payment and no card field on this page. We are finding out who wants this before we build it. If you join the waitlist we will show you the finished glove and a real price first, and only then does anyone decide anything.</p>
     </div>
   </div>
 </section>
@@ -153,8 +156,8 @@
 </footer>
 
 <div class="sticky-cta">
-  <span><b data-price>$349</b> · <span class="muted">$100 deposit</span></span>
-  <a class="btn btn--primary" href="#reserve" data-deposit="sticky">Reserve one</a>
+  <span><b data-price>$349</b> · <span class="muted">no payment today</span></span>
+  <a class="btn btn--primary" href="#reserve" data-cta="sticky">Join the waitlist</a>
 </div>
 
 <script>

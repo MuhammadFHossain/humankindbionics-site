@@ -32,7 +32,7 @@
 <nav class="nav">
   <div class="nav__inner">
     <span class="brand"><span class="brand__dot"></span> GripGift</span>
-    <a class="btn btn--ghost" href="#reserve">Reserve a gift</a>
+    <a class="btn btn--ghost" href="#reserve">Join the waitlist</a>
   </div>
 </nav>
 
@@ -54,7 +54,7 @@
         <b>Jar. Key. Door.</b><span class="muted">things a weak hand can do with it on. No battery.</span>
       </div>
       <div class="btn-row" style="margin-top:1.8rem">
-        <a class="btn btn--primary btn--big" href="#reserve" data-deposit="hero">Reserve a gift ($100 refundable)</a>
+        <a class="btn btn--primary btn--big" href="#reserve" data-cta="hero">Join the waitlist</a>
         <a class="btn btn--ghost" href="#why">Why it works as a gift</a>
       </div>
     </div>
@@ -62,6 +62,7 @@
       <img src="on-the-desk.webp" alt="A pair of leather gloves laid on a desk beside a lamp, a journal and reading glasses. Each has a dial at the wrist."
            width="1280" height="1073" decoding="async" fetchpriority="high" />
     </div>
+      <p class="render-note">Concept render. The production glove may differ.</p>
   </div>
 </header>
 
@@ -104,7 +105,7 @@
 <section class="section" id="reserve" data-section="reserve">
   <div class="wrap">
     <div class="offer">
-      <p class="eyebrow" style="justify-content:center">Reserve one as a gift</p>
+      <p class="eyebrow" style="justify-content:center">Join the waitlist</p>
       <h2>A gift that gives independence back.</h2>
       <p class="offer__price" data-price>$299</p>
       <p class="offer__note">You pay once. <span data-price-monthly>$25/mo</span> with a payment plan. Easy to split between siblings. No subscription, no batteries.</p>
@@ -115,13 +116,15 @@
         <li>Easy to put on with sore hands</li>
         <li>We help with sizing so it fits her</li>
       </ul>
-      <div>
-        <a class="btn btn--primary btn--big" href="#" data-deposit="offer">Reserve a gift with a $100 refundable deposit</a>
-      </div>
-      <p class="deposit-note">The $100 holds one from the first batch and comes off the price. You can get all of it back any time. Email us and we return it within 5 business days. If she cannot use it or does not like it, you get every cent back.</p>
-      <hr style="border:none;border-top:1px solid var(--line);margin:2rem 0" />
-      <p style="margin-bottom:.8rem"><b>Not ready to reserve? Get the email instead.</b></p>
+      <p class="deposit-note">No payment today. This is a concept in development, and we are finding out who wants it before we build it. Join the waitlist and we will show you the real thing first, with sizing, before anyone is asked for anything.</p>
+      <p style="margin-bottom:.8rem"><b>Tell us where to reach you.</b></p>
       <form class="emailform" style="margin:0 auto;justify-content:center" data-email-form="offer" action="https://formspree.io/f/XXXXXXXX" method="POST">
+        <label style="display:block;margin:0 0 .9rem;font-size:.95rem">Which hand?
+          <select name="hand" required aria-label="Which hand" style="display:block;margin-top:.35rem;padding:12px 14px;border-radius:999px;border:1px solid var(--line);font:inherit;background:var(--bg);color:var(--ink);min-width:220px">
+            <option value="">Choose one</option>
+            <option>Left</option><option>Right</option><option>Both</option>
+          </select>
+        </label>
         <input type="email" name="email" placeholder="you@email.com" required aria-label="Email address" />
         <button class="btn btn--ghost" type="submit">Email me</button>
       </form>
@@ -139,8 +142,8 @@
       <p><b>It is built so a proud parent will use it.</b> It looks like an accessory, not an aid. It gives her the win, not a reminder. And if it does not work out, the deposit and the purchase are fully refundable, so there is no risk to you.</p>
       <p><b>It will not feel like calling her old.</b> There is no medical branding on it. It is leather and metal, the kind of thing she would wear because she likes it.</p>
       <p><b>We help you get her size right.</b> Hands vary, especially with swollen joints. We help with sizing before it ships, so you do not have to guess.</p>
-      <p><b>Siblings can chip in together.</b> You reserve one now, and split the balance however you like when it is ready.</p>
-      <p><b>The deposit is fully refundable.</b> The $100 holds one and comes off the price. You can get all of it back any time. Email us and we return it within 5 business days.</p>
+      <p><b>Siblings often split a gift like this.</b> If it gets built, you can decide together when there is a real price.</p>
+      <p><b>Nothing is being sold here yet.</b> There is no payment and no card field on this page. We are finding out who wants this before we build it. If you join the waitlist we will show you the finished glove and a real price first, and only then does anyone decide anything.</p>
     </div>
   </div>
 </section>
@@ -156,8 +159,8 @@
 </footer>
 
 <div class="sticky-cta">
-  <span><b data-price>$299</b> · <span class="muted">$100 deposit</span></span>
-  <a class="btn btn--primary" href="#reserve" data-deposit="sticky">Reserve a gift</a>
+  <span><b data-price>$299</b> · <span class="muted">no payment today</span></span>
+  <a class="btn btn--primary" href="#reserve" data-cta="sticky">Join the waitlist</a>
 </div>
 
 <script>
