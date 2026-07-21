@@ -19,3 +19,8 @@ wire.sh
 # scratch
 *.log
 tmp/
+
+# internal docs live in the private strategy repo, not on the public site
+*.md
+!.github/**
+decision-board.html

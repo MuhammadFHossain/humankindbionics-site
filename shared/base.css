@@ -75,7 +75,7 @@ p { margin: 0 0 1em; }
 /* ---- hero ---- */
 .hero { padding-block: clamp(56px, 9vw, 120px) clamp(40px, 6vw, 80px); }
 .hero__grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(28px, 5vw, 64px); align-items: center; }
-/* 6/5 matches the source photographs (1200x1006), so nothing meaningful crops.
+/* 6/5 matches the source photographs closely, so nothing meaningful crops.
    The old 4/5 portrait was specified before the shots existed and would have
    cut the dial or the gripped object out of frame. */
 .hero__media { aspect-ratio: 6 / 5; background: var(--surface); border-radius: var(--radius); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; color: var(--ink-soft); overflow: hidden; }
@@ -114,7 +114,7 @@ p { margin: 0 0 1em; }
 .offer__note { font-size: .95rem; color: var(--ink-soft); }
 .offer__list { list-style: none; padding: 0; margin: 1.4rem 0; text-align: left; display: inline-block; }
 .offer__list li { padding: 8px 0 8px 30px; position: relative; }
-.offer__list li::before { content: "✓"; position: absolute; left: 0; color: var(--accent-ink); font-weight: 800; }
+.offer__list li::before { content: "✓"; position: absolute; left: 0; color: var(--accent); font-weight: 800; }
 .deposit-note { font-size: .9rem; color: var(--ink-soft); margin-top: 1rem; }
 
 /* ---- email form ---- */
@@ -128,7 +128,7 @@ p { margin: 0 0 1em; }
 .faq details { border-bottom: 1px solid var(--line); padding: 18px 0; }
 .faq summary { cursor: pointer; font-weight: 700; font-size: 1.1rem; list-style: none; display: flex; justify-content: space-between; gap: 1rem; }
 .faq summary::-webkit-details-marker { display: none; }
-.faq summary::after { content: "+"; color: var(--accent-ink); font-weight: 800; }
+.faq summary::after { content: "+"; color: var(--accent); font-weight: 800; }
 .faq details[open] summary::after { content: "\2013"; }
 .faq details p { margin-top: .8rem; color: var(--ink-soft); }
 
@@ -151,7 +151,7 @@ p { margin: 0 0 1em; }
 .trustbar { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .trustbar__inner { max-width: calc(var(--max) + var(--gutter) * 2); margin: 0 auto; padding: 12px var(--gutter); display: flex; flex-wrap: wrap; gap: 8px 26px; justify-content: center; font-size: .9rem; font-weight: 600; color: var(--ink-soft); }
 .trustbar span { display: inline-flex; align-items: center; gap: 7px; }
-.trustbar b { color: var(--accent); }
+.trustbar b { color: var(--ink); }
 
 /* ---- promise / reservation block ---- */
 .promise { max-width: 760px; margin: 2.4rem auto 0; }

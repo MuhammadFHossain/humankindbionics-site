@@ -26,6 +26,16 @@
   if (priceKeys.indexOf(priceVar) === -1) priceVar = CFG.defaultPrice || priceKeys[0];
 
   var copyVar = (QS.get("v") || CFG.defaultCopy || "a").toLowerCase();
+  // priceVar is validated against the available keys above; copyVar was not, so
+  // a stray ?v= in an ad URL hid every copy block and served an empty hero.
+  (function () {
+    var seen = Array.prototype.map.call(document.querySelectorAll("[data-copy]"),
+      function (el) { return el.getAttribute("data-copy"); });
+    if (seen.length && seen.indexOf(copyVar) === -1) {
+      copyVar = (CFG.defaultCopy || "a").toLowerCase();
+      if (seen.indexOf(copyVar) === -1) copyVar = seen[0];
+    }
+  })();
 
   // ---- capture attribution (persist for this visit) -------------------
   var UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "gclid", "fbclid"];
@@ -51,6 +61,10 @@
     // actually saw after Stripe redirects them back (sessionStorage survives the round-trip).
     attribution.price_variant = priceVar;
     attribution.copy_variant = copyVar;
+    // Store the brand's own display name so shared pages can render a back-link
+    // without a lookup table of every brand.
+    var navBrand = document.querySelector(".nav .brand");
+    if (navBrand) attribution.brand_label = (navBrand.textContent || "").trim();
   }
   try { sessionStorage.setItem("hkb_attr", JSON.stringify(attribution)); } catch (e) {}
 
@@ -356,11 +370,15 @@
     { slug: "privacy",   label: "Privacy" },
     { slug: "terms",     label: "Terms" }
   ];
-  var BRAND_NAMES = {
-    capstan: "Capstan", reclaim: "Reclaim", easygrip: "EasyGrip",
-    workgrip: "WorkGrip", golfgrip: "GolfGrip", picklegrip: "PickleGrip",
-    tennisgrip: "TennisGrip", liftgrip: "LiftGrip", gripgift: "GripGift"
-  };
+  // Deliberately not a roster. An object listing all nine brands here would be
+  // served to every brand page, so view-source on one would expose the set.
+  // The visitor's own brand is the only one this page ever needs to name, and
+  // the nav already carries it.
+  function originBrandLabel() {
+    var el = document.querySelector(".nav .brand");
+    if (!el) return "";
+    return (el.textContent || "").trim();
+  }
 
   function injectSharedFooter() {
     if (isLanding) return;
@@ -371,7 +389,12 @@
     var email = CFG.contactEmail || "contact@farhanhossain.com";
     var here = CFG.brand;
     var from = attribution.brand;
-    var backName = BRAND_NAMES[from];
+    // Only offer the way back when the stored brand looks like a plain slug and
+    // is not one of the shared pages. The label comes from sessionStorage, set by
+    // the landing page itself, so no page needs to know any other brand's name.
+    var backName = (from && /^[a-z]{3,20}$/.test(from) &&
+                    SHARED_NAV.every(function (p) { return p.slug !== from; }) &&
+                    from !== "thanks") ? (attribution.brand_label || from) : "";
 
     var h = '<div class="wrap">';
     // Only offer the way back if we actually know where they came from.
