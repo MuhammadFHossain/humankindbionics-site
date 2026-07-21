@@ -157,3 +157,19 @@ p { margin: 0 0 1em; }
 /* ---- footer legal links ---- */
 .legal-links { margin-top: .4rem; }
 .legal-links a { color: var(--ink-soft); text-decoration: underline; margin-right: 14px; white-space: nowrap; }
+
+/* ---- shared-page footer (support, guarantee, privacy, terms, thanks) ---- */
+.sfoot__back { margin: 0 0 1.5rem; }
+.sfoot__back a { display: inline-flex; align-items: center; gap: .5rem; font-weight: 600;
+                 color: var(--ink); text-decoration: none; }
+.sfoot__back a:hover { text-decoration: underline; }
+.sfoot__nav { display: flex; flex-wrap: wrap; gap: 10px 26px; margin: 0 0 1.25rem;
+              padding: 0 0 1.25rem; border-bottom: 1px solid var(--line); list-style: none; }
+.sfoot__nav a { color: var(--ink); text-decoration: none; font-weight: 500; }
+.sfoot__nav a:hover { text-decoration: underline; }
+/* the page you are already on: present for orientation, not clickable */
+.sfoot__nav [aria-current="page"] { color: var(--ink-soft); font-weight: 400; }
+.sfoot__contact { margin: 0 0 .75rem; }
+.sfoot__contact a { color: var(--ink); font-weight: 500; }
+.sfoot__fine { margin: 0; font-size: .86rem; line-height: 1.55; max-width: 68ch; }
+@media (max-width: 560px) { .sfoot__nav { gap: 10px 18px; } }

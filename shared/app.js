@@ -41,11 +41,17 @@
   if (!attribution.first_referrer) {
     attribution.first_referrer = document.referrer || "direct";
   }
-  attribution.brand = CFG.brand || "unknown";
-  // Persist the active variants too, so /thanks/ can recover what the visitor
-  // actually saw after Stripe redirects them back (sessionStorage survives the round-trip).
-  attribution.price_variant = priceVar;
-  attribution.copy_variant = copyVar;
+  // Landing pages own the stored brand; shared pages (support, legal, thanks)
+  // must not overwrite it, or we lose the record of which brand the visitor
+  // came from and can no longer offer them a way back.
+  var isLanding = !!document.querySelector('[data-section="reserve"]');
+  if (isLanding) {
+    attribution.brand = CFG.brand || "unknown";
+    // Persist the active variants too, so /thanks/ can recover what the visitor
+    // actually saw after Stripe redirects them back (sessionStorage survives the round-trip).
+    attribution.price_variant = priceVar;
+    attribution.copy_variant = copyVar;
+  }
   try { sessionStorage.setItem("hkb_attr", JSON.stringify(attribution)); } catch (e) {}
 
   function context() {
@@ -338,9 +344,62 @@
     }
   }
 
+  // ---- shared-page footer --------------------------------------------
+  // support / guarantee / privacy / terms / thanks each hand-rolled their own
+  // footer, and four of the five were dead ends: no way back to the brand the
+  // visitor arrived from, and no way across to the other shared pages. Two of
+  // them promised "email us" in the body while offering no address. One footer,
+  // built here, keeps all five consistent.
+  var SHARED_NAV = [
+    { slug: "support",   label: "Support" },
+    { slug: "guarantee", label: "Money-back guarantee" },
+    { slug: "privacy",   label: "Privacy" },
+    { slug: "terms",     label: "Terms" }
+  ];
+  var BRAND_NAMES = {
+    capstan: "Capstan", reclaim: "Reclaim", easygrip: "EasyGrip",
+    workgrip: "WorkGrip", golfgrip: "GolfGrip", picklegrip: "PickleGrip",
+    tennisgrip: "TennisGrip", liftgrip: "LiftGrip", gripgift: "GripGift"
+  };
+
+  function injectSharedFooter() {
+    if (isLanding) return;
+    var foot = document.querySelector(".footer");
+    if (!foot) return;
+
+    var base = CFG.legalBase || "../";
+    var email = CFG.contactEmail || "contact@farhanhossain.com";
+    var here = CFG.brand;
+    var from = attribution.brand;
+    var backName = BRAND_NAMES[from];
+
+    var h = '<div class="wrap">';
+    // Only offer the way back if we actually know where they came from.
+    // A visitor who opened this page directly has no origin to return to.
+    if (backName) {
+      h += '<p class="sfoot__back"><a href="' + base + from + '/">' +
+           '<span aria-hidden="true">←</span> Back to ' + backName + '</a></p>';
+    }
+    h += '<ul class="sfoot__nav">';
+    SHARED_NAV.forEach(function (p) {
+      h += p.slug === here
+        ? '<li><span aria-current="page">' + p.label + '</span></li>'
+        : '<li><a href="' + base + p.slug + '/">' + p.label + '</a></li>';
+    });
+    h += '</ul>';
+    h += '<p class="sfoot__contact">Questions? <a href="mailto:' + email + '">' +
+         email + '</a>. A real person reads and answers.</p>';
+    h += '<p class="sfoot__fine">© <span data-year></span> · A grip aid, not a ' +
+         'medical device. Not intended to diagnose, treat, cure, or prevent any disease ' +
+         'or condition. Your deposit is fully refundable at any time before your order ships.</p>';
+    h += '</div>';
+    foot.innerHTML = h;
+  }
+
   // ---- boot -----------------------------------------------------------
   function boot() {
     injectTrust();
+    injectSharedFooter();
     applyVariants();
     wireDeposit();
     wireEmail();
