@@ -7,8 +7,8 @@
 <meta name="description" content="Humankind Bionics is a small team in California building wearable devices that give people their strength back for everyday tasks.">
 <meta property="og:title" content="Humankind Bionics">
 <meta property="og:description" content="The world was not built for every body. Leave your email and we will tell you when it is ready.">
-<meta property="og:image" content="https://humankindbionics.com/assets/brand/share.jpg">
-<meta property="og:url" content="https://humankindbionics.com/">
+<meta property="og:image" content="https://humankindbionics.org/assets/brand/share.jpg">
+<meta property="og:url" content="https://humankindbionics.org/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/icon-32.png">
 <link rel="apple-touch-icon" href="assets/brand/icon-180.png">
@@ -192,7 +192,7 @@ function send(addr){
     /* form-encoded body and no custom headers: Apps Script reads e.parameter only from
        form bodies, and it never answers a CORS preflight, so the request must stay simple.
        It answers 200 with {ok:false} on its own failures, so the body is checked too. */
-    var body=new URLSearchParams(); body.append('email',addr); body.append('source','humankindbionics.com'); body.append('page',location.pathname);
+    var body=new URLSearchParams(); body.append('email',addr); body.append('source','humankindbionics.org'); body.append('page',location.pathname);
     return fetch(SIGNUP.sheetEndpoint,{method:'POST',body:body}).then(function(r){ if(!r.ok) throw new Error('sheet '+r.status); return r.text(); })
       .then(function(t){ var p=null; try{ p=JSON.parse(t); }catch(e){} if(!p||p.ok!==true) throw new Error('sheet rejected'); });
   }
@@ -200,7 +200,7 @@ function send(addr){
     return fetch('https://a.klaviyo.com/client/subscriptions/?company_id='+encodeURIComponent(SIGNUP.klaviyoCompanyId),{method:'POST',headers:{'Content-Type':'application/json','revision':'2024-10-15'},
       body:JSON.stringify({data:{type:'subscription',attributes:{profile:{data:{type:'profile',attributes:{email:addr}}}},relationships:{list:{data:{type:'list',id:SIGNUP.klaviyoListId}}}}})}).then(function(r){ if(!r.ok&&r.status!==202) throw new Error('klaviyo '+r.status); });
   }
-  return fetch(SIGNUP.formspreeEndpoint,{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},body:JSON.stringify({email:addr,source:'humankindbionics.com'})}).then(function(r){ if(!r.ok) throw new Error('formspree '+r.status); });
+  return fetch(SIGNUP.formspreeEndpoint,{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},body:JSON.stringify({email:addr,source:'humankindbionics.org'})}).then(function(r){ if(!r.ok) throw new Error('formspree '+r.status); });
 }
 form.addEventListener('submit',function(e){
   e.preventDefault(); if(btn.classList.contains('done')) return;
