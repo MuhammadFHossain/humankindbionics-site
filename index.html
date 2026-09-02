@@ -173,9 +173,10 @@ function frame(now){
   for(var i=seeds.length-1;i>=0;i--){
     var s=seeds[i]; s.ph+=0.02*dt;
     s.vx+=(wind.x*0.06)*dt; s.vy+=(wind.y*0.06)*dt;
-    if(s.burst){ s.vy+=0.02*dt; s.vx*=0.985; s.vy*=0.985; s.life-=0.006*dt; } else { s.vx=s.vx*0.985+(-0.2)*0.015; s.vy=s.vy*0.985+(-0.1)*0.015; }
+    if(s.burst){ s.vy+=0.02*dt; s.vx*=0.985; s.vy*=0.985; s.life-=0.0035*dt; } else { s.vx=s.vx*0.985+(-0.2)*0.015; s.vy=s.vy*0.985+(-0.1)*0.015; }
     s.x+=(s.vx+Math.sin(s.ph)*0.35)*dt; s.y+=(s.vy+Math.cos(s.ph*0.7)*0.25)*dt; s.rot+=(s.vr+wind.x*0.4)*dt;
-    var goal=s.burst?Math.max(0,s.life)*0.9:s.target; s.op+=(goal-s.op)*0.04*dt;
+    /* burst seeds appear at once, hold full strength, and fade only over the last third of their life */
+    var goal=s.burst?Math.min(1,Math.max(0,s.life)/0.35):s.target; s.op+=(goal-s.op)*(s.burst?0.2:0.04)*dt;
     if(!s.burst && (s.x<-120||s.y<-120||s.x>innerWidth+160||s.y>innerHeight+160)) reset(s);
     if(s.burst && s.life<=0){ s.el.remove(); seeds.splice(i,1); continue; }
     s.el.style.opacity=s.op; s.el.style.transform='translate('+s.x+'px,'+s.y+'px) rotate('+s.rot+'deg)';
