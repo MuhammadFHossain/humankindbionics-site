@@ -90,9 +90,9 @@ input:focus{outline:none;background:#fff;box-shadow:0 0 0 3px var(--yellow)}
     <img class="ph" data-t="morning" src="assets/photos/morning.jpg" alt="" style="object-position:50% 50%">
     <img class="ph" data-t="noon" src="assets/photos/noon.jpg" alt="Sunlit green hills" style="object-position:50% 58%">
     <img class="ph" data-t="afternoon" src="assets/photos/afternoon.jpg" alt="" style="object-position:50% 58%">
-    <img class="ph" data-t="golden" src="assets/photos/golden.jpg" alt="" style="object-position:50% 60%">
-    <img class="ph" data-t="dusk" src="assets/photos/dusk.jpg" alt="" style="object-position:50% 40%">
-    <img class="ph" data-t="night" src="assets/photos/night.jpg" alt="" style="object-position:50% 30%">
+    <img class="ph" data-t="golden" src="assets/photos/golden.jpg" alt="" style="object-position:50% 55%">
+    <img class="ph" data-t="dusk" src="assets/photos/dusk.jpg" alt="" style="object-position:50% 45%">
+    <img class="ph" data-t="night" src="assets/photos/night.jpg" alt="" style="object-position:50% 50%">
   </div>
   <div class="veil"></div>
 
@@ -144,7 +144,7 @@ h.innerHTML=words.map(function(w,i){return '<span class="w" style="animation-del
 /* time of day: six photos, one for the visitor's hour */
 var root=document.documentElement, hr=new Date().getHours(), clock=document.getElementById('clock');
 var tod = hr<5?'night': hr<9?'morning': hr<13?'noon': hr<17?'afternoon': hr<19?'golden': hr<21?'dusk':'night';
-var V={morning:[.16,.5],noon:[.24,.55],afternoon:[.18,.5],golden:[.2,.55],dusk:[.15,.5],night:[.1,.45]}[tod];
+var V={morning:[.3,.5],noon:[.24,.55],afternoon:[.18,.5],golden:[.26,.55],dusk:[.18,.5],night:[.1,.45]}[tod];
 root.style.setProperty('--veil-top',V[0]);root.style.setProperty('--veil-bot',V[1]);
 document.querySelectorAll('.ph').forEach(function(im){ im.classList.toggle('on', im.getAttribute('data-t')===tod); });
 clock.textContent=({morning:'Good morning',noon:'Good day',afternoon:'Good afternoon',golden:'Good evening',dusk:'Good evening',night:'Good night'})[tod];
