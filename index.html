@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Humankind Bionics</title>
+<meta name="description" content="Humankind Bionics is a small team in California building wearable devices that give people their strength back for everyday tasks.">
+<meta property="og:title" content="Humankind Bionics">
+<meta property="og:description" content="The world was not built for every body. Leave your email and we will tell you when it is ready.">
+<meta property="og:image" content="https://humankindbionics.com/assets/brand/share.jpg">
+<meta property="og:url" content="https://humankindbionics.com/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/brand/icon-32.png">
+<link rel="apple-touch-icon" href="assets/brand/icon-180.png">
+<link rel="preload" as="image" href="assets/photos/noon.jpg">
+<style>
+@font-face{font-family:"Figtree";font-style:normal;font-weight:300;font-display:swap;src:url(assets/fonts/figtree-latin-300-normal.woff2) format("woff2")}
+@font-face{font-family:"Figtree";font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/figtree-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Figtree";font-style:normal;font-weight:500;font-display:swap;src:url(assets/fonts/figtree-latin-500-normal.woff2) format("woff2")}
+:root{--ink:#1B2A20;--yellow:#FCDC58;--bg:#0F1E16;--r:28px;--rim:12px;--veil-top:.24;--veil-bot:.55}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Figtree",system-ui,sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;line-height:1.5;min-height:100vh;overflow-x:hidden}
+h1,p{margin:0}
+.scene{position:relative;min-height:100vh;min-height:100svh;overflow:hidden;isolation:isolate;display:grid;grid-template-rows:auto 1fr auto}
+.world{position:absolute;inset:-4%;z-index:0;will-change:transform}
+.ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.05) contrast(1.02);opacity:0;transition:opacity 1.6s ease;transform-origin:50% 60%}
+.ph.on{opacity:1;animation:drift 60s ease-in-out infinite alternate}
+@keyframes drift{from{transform:scale(1)}to{transform:scale(1.05)}}
+.veil{position:absolute;inset:0;z-index:0;background:linear-gradient(180deg,rgba(16,35,26,var(--veil-top)) 0%,rgba(16,35,26,0) 30%,rgba(16,35,26,.10) 65%,rgba(16,35,26,var(--veil-bot)) 100%);transition:background 2s ease}
+.seed{position:absolute;left:0;top:0;z-index:0;pointer-events:none;opacity:0;will-change:transform,opacity;filter:drop-shadow(0 4px 8px rgba(0,0,0,.35))}
+.top{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px clamp(20px,4vw,48px);color:#F7F4EA;text-shadow:0 1px 12px rgba(0,0,0,.35);opacity:0;animation:rise 1.1s .25s cubic-bezier(.2,.7,.2,1) forwards}
+.top .brand{display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none}
+.top .brand img.lock{width:clamp(150px,14vw,190px);height:auto;filter:drop-shadow(0 2px 10px rgba(0,0,0,.3));transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+.top .brand:hover img.lock{transform:scale(1.03)}
+.top span.right{font-size:.85rem;letter-spacing:.16em;text-transform:uppercase;opacity:.85}
+.mid{position:relative;z-index:2;display:grid;align-content:center;padding:6vh clamp(20px,4vw,48px)}
+.tilt{width:min(640px,100%);will-change:transform;opacity:0;animation:rise 1.2s .1s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+.g{position:relative;isolation:isolate;padding:clamp(30px,4vw,56px);border-radius:var(--r);color:var(--ink);box-shadow:0 44px 80px -34px rgba(16,35,26,.65),0 6px 14px rgba(16,35,26,.14);display:grid;gap:clamp(16px,2vw,24px)}
+.g::before{content:"";position:absolute;inset:var(--rim);border-radius:calc(var(--r) - var(--rim));z-index:0;pointer-events:none;
+  background:radial-gradient(120% 80% at 18% 0%,rgba(255,255,255,.35) 0%,rgba(255,255,255,0) 55%),radial-gradient(90% 60% at 90% 100%,rgba(255,255,255,.18) 0%,rgba(255,255,255,0) 60%),linear-gradient(160deg,rgba(255,255,255,.90) 0%,rgba(255,255,255,.82) 55%,rgba(255,255,255,.86) 100%);
+  backdrop-filter:blur(28px) saturate(1.4) brightness(1.06);-webkit-backdrop-filter:blur(28px) saturate(1.4) brightness(1.06);
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.95),inset 0 12px 22px -8px rgba(255,255,255,.7),inset 0 -1px 0 rgba(16,35,26,.14),inset 0 -16px 26px -14px rgba(16,35,26,.16)}
+.g::after{content:"";position:absolute;inset:0;border-radius:var(--r);z-index:0;pointer-events:none;padding:var(--rim);
+  background:linear-gradient(135deg,rgba(255,255,255,.92) 0%,rgba(255,255,255,.35) 22%,rgba(255,255,255,.06) 48%,rgba(255,255,255,.22) 72%,rgba(255,255,255,.80) 100%);
+  backdrop-filter:blur(1.5px) brightness(1.28) saturate(1.6) contrast(1.08);-webkit-backdrop-filter:blur(1.5px) brightness(1.28) saturate(1.6) contrast(1.08);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.75),inset 0 0 0 2px rgba(255,255,255,.18),0 0 0 1px rgba(16,35,26,.10)}
+.g>*{position:relative;z-index:1}
+.g .glint{position:absolute;left:8%;right:30%;top:calc(var(--rim) + 2px);height:2px;border-radius:999px;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.95) 30%,rgba(255,255,255,.95) 60%,rgba(255,255,255,0));pointer-events:none}
+.g .sweep{position:absolute;inset:var(--rim);border-radius:calc(var(--r) - var(--rim));overflow:hidden;pointer-events:none;z-index:1}
+.g .sweep::before{content:"";position:absolute;top:-20%;bottom:-20%;left:-40%;width:35%;background:linear-gradient(100deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 100%);transform:skewX(-14deg);animation:sweep 2.2s 1s cubic-bezier(.3,.6,.2,1) forwards}
+@keyframes sweep{to{left:130%}}
+h1{font-weight:300;font-size:clamp(2.3rem,4.8vw,4.2rem);line-height:1;letter-spacing:-.025em;text-wrap:balance}
+h1 .w{display:inline-block;opacity:0;transform:translateY(.35em);animation:word .9s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes word{to{opacity:1;transform:none}}
+p.lead{font-size:clamp(1.05rem,1.3vw,1.2rem);line-height:1.55;max-width:48ch;opacity:0;animation:fade 1s 1.1s ease forwards}
+form,.note{opacity:0;animation:fade 1s 1.35s ease forwards}
+@keyframes fade{to{opacity:1}}
+form{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+input{flex:1;min-width:200px;padding:15px 20px;border-radius:999px;border:1px solid rgba(27,42,32,.22);background:rgba(255,255,255,.9);font:inherit;font-size:1rem;color:var(--ink);transition:background .3s,box-shadow .3s}
+input::placeholder{color:rgba(27,42,32,.55)}
+input:focus{outline:none;background:#fff;box-shadow:0 0 0 3px var(--yellow)}
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;padding:15px 26px;border-radius:999px;font-weight:500;font-size:1rem;color:var(--ink);background:var(--yellow);border:0;cursor:pointer;font-family:inherit;line-height:1;box-shadow:0 12px 26px -10px rgba(252,220,88,.8);transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s;overflow:hidden}
+.btn::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(255,255,255,0) 30%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 70%);transform:translateX(-120%);transition:transform .7s ease}
+.btn:hover{transform:translateY(-2px);box-shadow:0 18px 30px -12px rgba(252,220,88,.9)}
+.btn:hover::after{transform:translateX(120%)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.btn.done{background:#FFF3BF}
+.btn[disabled]{opacity:.7;cursor:default}
+.note{font-size:.85rem;opacity:.7}
+.note.ok{opacity:1}
+.note.err{opacity:1;color:#8A3B2A}
+.bot{position:relative;z-index:2;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:22px clamp(20px,4vw,48px);color:rgba(247,244,234,.85);font-size:.85rem;text-shadow:0 1px 10px rgba(0,0,0,.35);opacity:0;animation:fade 1.2s .9s ease forwards}
+.bot a{color:#FFE989;text-decoration:none}
+.bot .hint{opacity:.7}
+@media (max-width:700px){.mid{align-content:end}.bot .hint{display:none}}
+@media (prefers-reduced-motion:reduce){.ph.on,.top,.tilt,h1 .w,p.lead,form,.note,.bot,.g .sweep::before{animation:none;opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="scene" id="scene">
+  <div class="world" id="world">
+    <img class="ph" data-t="morning" src="assets/photos/morning.jpg" alt="" style="object-position:50% 50%">
+    <img class="ph" data-t="noon" src="assets/photos/noon.jpg" alt="Sunlit green hills" style="object-position:50% 58%">
+    <img class="ph" data-t="afternoon" src="assets/photos/afternoon.jpg" alt="" style="object-position:50% 58%">
+    <img class="ph" data-t="golden" src="assets/photos/golden.jpg" alt="" style="object-position:50% 60%">
+    <img class="ph" data-t="dusk" src="assets/photos/dusk.jpg" alt="" style="object-position:50% 40%">
+    <img class="ph" data-t="night" src="assets/photos/night.jpg" alt="" style="object-position:50% 30%">
+  </div>
+  <div class="veil"></div>
+
+  <header class="top">
+    <div class="brand" id="brand" title="Blow"><img class="lock" src="assets/brand/lockup-light.png" alt="Humankind Bionics"></div>
+    <span class="right" id="clock">Hello</span>
+  </header>
+
+  <main class="mid">
+    <div class="tilt" id="tilt"><div class="g" id="panel"><span class="glint"></span><span class="sweep"></span>
+      <h1 id="h1">The world was not built for every body.</h1>
+      <p class="lead">We are a small team in California. We are building wearable devices that give people their strength back for everyday tasks. It is not ready to show yet. Leave your email and we will tell you when it is.</p>
+      <form id="form" novalidate>
+        <input type="email" name="email" id="email" placeholder="Your email" aria-label="Your email" autocomplete="email" required>
+        <button class="btn" id="btn" type="submit">Tell me when it is ready</button>
+      </form>
+      <span class="note" id="note">We will only email you when it is ready. No spam.</span>
+    </div></div>
+  </main>
+
+  <footer class="bot">
+    <span>© 2026 Humankind Bionics</span>
+    <span class="hint">Move your mouse to make a little wind.</span>
+    <span><a href="mailto:contact@humankindbionics.com">contact@humankindbionics.com</a></span>
+  </footer>
+</div>
+
+<script>
+/* ============================================================
+   SIGN-UP SETTINGS. Fill in ONE of these. See HANDOFF.md.
+   ============================================================ */
+var SIGNUP = {
+  provider: 'formspree',                 // 'formspree' or 'klaviyo'
+  formspreeEndpoint: 'https://formspree.io/f/REPLACE_ME',
+  klaviyoCompanyId: 'REPLACE_ME',        // Klaviyo public API key (6 characters)
+  klaviyoListId: 'REPLACE_ME'            // Klaviyo list ID
+};
+
+(function(){
+var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var touch=matchMedia('(hover: none)').matches;
+
+/* headline: words rise one after another */
+var h=document.getElementById('h1'); var words=h.textContent.split(' ');
+h.innerHTML=words.map(function(w,i){return '<span class="w" style="animation-delay:'+(0.35+i*0.07)+'s">'+w+'</span>'}).join(' ');
+
+/* time of day: six photos, one for the visitor's hour */
+var root=document.documentElement, hr=new Date().getHours(), clock=document.getElementById('clock');
+var tod = hr<5?'night': hr<9?'morning': hr<13?'noon': hr<17?'afternoon': hr<19?'golden': hr<21?'dusk':'night';
+var V={morning:[.16,.5],noon:[.24,.55],afternoon:[.18,.5],golden:[.2,.55],dusk:[.15,.5],night:[.1,.45]}[tod];
+root.style.setProperty('--veil-top',V[0]);root.style.setProperty('--veil-bot',V[1]);
+document.querySelectorAll('.ph').forEach(function(im){ im.classList.toggle('on', im.getAttribute('data-t')===tod); });
+clock.textContent=({morning:'Good morning',noon:'Good day',afternoon:'Good afternoon',golden:'Good evening',dusk:'Good evening',night:'Good night'})[tod];
+
+/* tilt: the glass shifts toward the cursor, the world shifts away (flat, so the blur keeps working in Safari) */
+var tilt=document.getElementById('tilt'), world=document.getElementById('world'), tx=0,ty=0,cx=0,cy=0;
+if(!touch&&!reduce){ addEventListener('pointermove',function(e){tx=(e.clientX/innerWidth-0.5); ty=(e.clientY/innerHeight-0.5);}); }
+
+/* seeds: drift on their own, and follow the wind of the mouse */
+var scene=document.getElementById('scene'); var seeds=[]; var wind={x:0,y:0}; var lastX=null,lastY=null;
+var SRC=['assets/brand/seed-1.png','assets/brand/seed-2.png'];
+function spawn(x,y,burst){
+  var img=document.createElement('img'); img.className='seed'; img.alt=''; img.src=SRC[Math.floor(Math.random()*2)];
+  var size=burst?26+Math.random()*22:28+Math.random()*44; img.style.width=size+'px';
+  var s={el:img,x:x,y:y,vx:burst?(Math.random()-0.5)*3.2:(-0.15-Math.random()*0.25),vy:burst?(-2.4-Math.random()*2.2):(-0.08-Math.random()*0.12),rot:Math.random()*360,vr:(Math.random()-0.5)*0.6,ph:Math.random()*6.28,life:burst?1:Infinity,op:0,target:0.55+Math.random()*0.35,burst:!!burst};
+  scene.appendChild(img); seeds.push(s); return s;
+}
+function reset(s){ s.x=innerWidth*(0.9+Math.random()*0.4); s.y=innerHeight*(0.2+Math.random()*0.9); s.vx=-0.15-Math.random()*0.25; s.vy=-0.08-Math.random()*0.12; s.op=0; }
+var N=touch?9:14; for(var i=0;i<N;i++){ spawn(Math.random()*innerWidth,Math.random()*innerHeight); }
+addEventListener('pointermove',function(e){ if(lastX!==null){ wind.x+=(e.clientX-lastX)*0.02; wind.y+=(e.clientY-lastY)*0.02; } lastX=e.clientX; lastY=e.clientY; });
+function puff(x,y,n){ for(var i=0;i<n;i++) spawn(x+(Math.random()-0.5)*40,y+(Math.random()-0.5)*20,true); }
+document.getElementById('brand').addEventListener('click',function(e){ var r=e.currentTarget.getBoundingClientRect(); puff(r.left+20,r.top+16,10); });
+scene.addEventListener('pointerdown',function(e){ if(touch && !e.target.closest('form,a,button,.brand')) { wind.x+=(Math.random()-0.5)*6; wind.y-=3; } });
+var t0=performance.now();
+function frame(now){
+  var dt=Math.min(40,now-t0)/16.7; t0=now;
+  wind.x*=0.94; wind.y*=0.94; wind.x=Math.max(-6,Math.min(6,wind.x)); wind.y=Math.max(-6,Math.min(6,wind.y));
+  for(var i=seeds.length-1;i>=0;i--){
+    var s=seeds[i]; s.ph+=0.02*dt;
+    s.vx+=(wind.x*0.06)*dt; s.vy+=(wind.y*0.06)*dt;
+    if(s.burst){ s.vy+=0.02*dt; s.vx*=0.985; s.vy*=0.985; s.life-=0.006*dt; } else { s.vx=s.vx*0.985+(-0.2)*0.015; s.vy=s.vy*0.985+(-0.1)*0.015; }
+    s.x+=(s.vx+Math.sin(s.ph)*0.35)*dt; s.y+=(s.vy+Math.cos(s.ph*0.7)*0.25)*dt; s.rot+=(s.vr+wind.x*0.4)*dt;
+    var goal=s.burst?Math.max(0,s.life)*0.9:s.target; s.op+=(goal-s.op)*0.04*dt;
+    if(!s.burst && (s.x<-120||s.y<-120||s.x>innerWidth+160||s.y>innerHeight+160)) reset(s);
+    if(s.burst && s.life<=0){ s.el.remove(); seeds.splice(i,1); continue; }
+    s.el.style.opacity=s.op; s.el.style.transform='translate('+s.x+'px,'+s.y+'px) rotate('+s.rot+'deg)';
+  }
+  if(!touch&&!reduce){ cx+=(tx-cx)*0.06; cy+=(ty-cy)*0.06; tilt.style.transform='translate('+(cx*14)+'px,'+(cy*10)+'px)'; world.style.transform='translate('+(-cx*18)+'px,'+(-cy*12)+'px)'; }
+  requestAnimationFrame(frame);
+}
+if(!reduce) requestAnimationFrame(frame); else seeds.forEach(function(s){s.el.style.opacity=.6;s.el.style.transform='translate('+s.x+'px,'+s.y+'px)';});
+
+/* the moment of joining: send the email, then a small release of seeds */
+var form=document.getElementById('form'), btn=document.getElementById('btn'), note=document.getElementById('note'), email=document.getElementById('email');
+function say(t,cls){ note.textContent=t; note.className='note '+(cls||''); }
+function celebrate(){ var r=btn.getBoundingClientRect(); puff(r.left+r.width/2,r.top,14); btn.textContent='Thank you. We will write to you.'; btn.classList.add('done'); say('You are one of the first to know.','ok'); }
+function send(addr){
+  if(SIGNUP.provider==='klaviyo'){
+    return fetch('https://a.klaviyo.com/client/subscriptions/?company_id='+encodeURIComponent(SIGNUP.klaviyoCompanyId),{method:'POST',headers:{'Content-Type':'application/json','revision':'2024-10-15'},
+      body:JSON.stringify({data:{type:'subscription',attributes:{profile:{data:{type:'profile',attributes:{email:addr}}}},relationships:{list:{data:{type:'list',id:SIGNUP.klaviyoListId}}}}})}).then(function(r){ if(!r.ok&&r.status!==202) throw new Error('klaviyo '+r.status); });
+  }
+  return fetch(SIGNUP.formspreeEndpoint,{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},body:JSON.stringify({email:addr,source:'humankindbionics.com'})}).then(function(r){ if(!r.ok) throw new Error('formspree '+r.status); });
+}
+form.addEventListener('submit',function(e){
+  e.preventDefault(); if(btn.classList.contains('done')) return;
+  var addr=(email.value||'').trim();
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(addr)){ say('Please check the email address.','err'); email.focus(); return; }
+  var unset=/REPLACE_ME/.test(SIGNUP.provider==='klaviyo'?SIGNUP.klaviyoCompanyId+SIGNUP.klaviyoListId:SIGNUP.formspreeEndpoint);
+  btn.disabled=true; say('One moment.');
+  (unset?Promise.resolve():send(addr)).then(function(){ celebrate(); }).catch(function(){ btn.disabled=false; say('Something went wrong. Please try again, or email contact@humankindbionics.com.','err'); });
+});
+})();
+</script>
+</body>
+</html>
