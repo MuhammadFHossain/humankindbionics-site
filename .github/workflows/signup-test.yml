@@ -1,0 +1,38 @@
+# Sends one test sign-up to the sheet endpoint named in index.html, so the
+# form's plumbing can be checked without touching the live page.
+# Run it by hand from the Actions tab (workflow_dispatch). It also runs once
+# when this file itself changes.
+name: Send a test sign-up
+
+on:
+  workflow_dispatch:
+    inputs:
+      email:
+        description: Address to submit
+        default: test@humankindbionics.com
+        required: true
+  push:
+    paths:
+      - .github/workflows/signup-test.yml
+
+permissions:
+  contents: read
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Post to the sheet endpoint
+        env:
+          EMAIL: ${{ github.event.inputs.email || 'test@humankindbionics.com' }}
+        run: |
+          set -eu
+          endpoint=$(grep -o "sheetEndpoint: '[^']*'" index.html | cut -d"'" -f2)
+          echo "endpoint: $endpoint"
+          echo "alive check (GET):"
+          curl -sS -L "$endpoint"; echo
+          echo "submit $EMAIL (POST):"
+          body=$(curl -sS -L --data-urlencode "email=$EMAIL" --data-urlencode "source=github-actions-test" --data-urlencode "page=/actions-test" "$endpoint")
+          echo "$body"
+          echo "$body" | grep -q '"ok":true' || { echo "::error::the endpoint did not answer {ok:true}"; exit 1; }
