@@ -118,10 +118,12 @@ input:focus{outline:none;background:#fff;box-shadow:0 0 0 3px var(--yellow)}
 
 <script>
 /* ============================================================
-   SIGN-UP SETTINGS. Fill in ONE of these. See HANDOFF.md.
+   SIGN-UP SETTINGS. Fill in ONE of these.
+   'sheet' posts to a Google Apps Script web app that writes a Google Sheet.
    ============================================================ */
 var SIGNUP = {
-  provider: 'formspree',                 // 'formspree' or 'klaviyo'
+  provider: 'sheet',                     // 'sheet', 'formspree' or 'klaviyo'
+  sheetEndpoint: 'https://script.google.com/macros/s/REPLACE_ME/exec',
   formspreeEndpoint: 'https://formspree.io/f/REPLACE_ME',
   klaviyoCompanyId: 'REPLACE_ME',        // Klaviyo public API key (6 characters)
   klaviyoListId: 'REPLACE_ME'            // Klaviyo list ID
@@ -186,6 +188,14 @@ var form=document.getElementById('form'), btn=document.getElementById('btn'), no
 function say(t,cls){ note.textContent=t; note.className='note '+(cls||''); }
 function celebrate(){ var r=btn.getBoundingClientRect(); puff(r.left+r.width/2,r.top,14); btn.textContent='Thank you. We will write to you.'; btn.classList.add('done'); say('You are one of the first to know.','ok'); }
 function send(addr){
+  if(SIGNUP.provider==='sheet'){
+    /* form-encoded body and no custom headers: Apps Script reads e.parameter only from
+       form bodies, and it never answers a CORS preflight, so the request must stay simple.
+       It answers 200 with {ok:false} on its own failures, so the body is checked too. */
+    var body=new URLSearchParams(); body.append('email',addr); body.append('source','humankindbionics.com'); body.append('page',location.pathname);
+    return fetch(SIGNUP.sheetEndpoint,{method:'POST',body:body}).then(function(r){ if(!r.ok) throw new Error('sheet '+r.status); return r.text(); })
+      .then(function(t){ var p=null; try{ p=JSON.parse(t); }catch(e){} if(!p||p.ok!==true) throw new Error('sheet rejected'); });
+  }
   if(SIGNUP.provider==='klaviyo'){
     return fetch('https://a.klaviyo.com/client/subscriptions/?company_id='+encodeURIComponent(SIGNUP.klaviyoCompanyId),{method:'POST',headers:{'Content-Type':'application/json','revision':'2024-10-15'},
       body:JSON.stringify({data:{type:'subscription',attributes:{profile:{data:{type:'profile',attributes:{email:addr}}}},relationships:{list:{data:{type:'list',id:SIGNUP.klaviyoListId}}}}})}).then(function(r){ if(!r.ok&&r.status!==202) throw new Error('klaviyo '+r.status); });
@@ -196,7 +206,7 @@ form.addEventListener('submit',function(e){
   e.preventDefault(); if(btn.classList.contains('done')) return;
   var addr=(email.value||'').trim();
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(addr)){ say('Please check the email address.','err'); email.focus(); return; }
-  var unset=/REPLACE_ME/.test(SIGNUP.provider==='klaviyo'?SIGNUP.klaviyoCompanyId+SIGNUP.klaviyoListId:SIGNUP.formspreeEndpoint);
+  var unset=/REPLACE_ME/.test(SIGNUP.provider==='klaviyo'?SIGNUP.klaviyoCompanyId+SIGNUP.klaviyoListId:SIGNUP.provider==='sheet'?SIGNUP.sheetEndpoint:SIGNUP.formspreeEndpoint);
   btn.disabled=true; say('One moment.');
   (unset?Promise.resolve():send(addr)).then(function(){ celebrate(); }).catch(function(){ btn.disabled=false; say('Something went wrong. Please try again, or email contact@humankindbionics.com.','err'); });
 });
