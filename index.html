@@ -188,12 +188,12 @@ if(!reduce) requestAnimationFrame(frame); else seeds.forEach(function(s){s.el.st
 /* the moment of joining: send the email, then a small release of seeds */
 var form=document.getElementById('form'), btn=document.getElementById('btn'), note=document.getElementById('note'), email=document.getElementById('email');
 function say(t,cls){ note.textContent=t; note.className='note '+(cls||''); }
-function celebrate(){ var r=btn.getBoundingClientRect(); puff(r.left+r.width/2,r.top,14); btn.textContent='Thank you. We will write to you.'; btn.classList.add('done'); say('You are one of the first to know.','ok'); }
-/* hovering the button lets a few seeds go from its top edge, once per visit */
-var lastPuff=0;
-function edgePuff(n){ var r=btn.getBoundingClientRect(); for(var i=0;i<n;i++){ var s=spawn(r.left+8+Math.random()*(r.width-16), r.top-6-Math.random()*8, true); s.vx=(Math.random()-0.5)*2.4; s.vy=-1.6-Math.random()*2; } }
+/* seeds burst from the top edge of the glass, out over the photo where white seeds can be seen */
+var panel=document.getElementById('panel'), lastPuff=0;
+function topPuff(n){ var r=panel.getBoundingClientRect(); for(var i=0;i<n;i++){ var s=spawn(r.left+24+Math.random()*(r.width-48), r.top-4-Math.random()*6, true); s.vx=(Math.random()-0.5)*3.2; s.vy=-2.2-Math.random()*2.6; } }
+function celebrate(){ topPuff(14); btn.textContent='Thank you. We will write to you.'; btn.classList.add('done'); say('You are one of the first to know.','ok'); }
 if(!touch&&!reduce){
-  btn.addEventListener('pointerenter',function(){ if(btn.disabled||btn.classList.contains('done')) return; var now=performance.now(); if(now-lastPuff<600) return; lastPuff=now; edgePuff(4); });
+  btn.addEventListener('pointerenter',function(){ if(btn.disabled||btn.classList.contains('done')) return; var now=performance.now(); if(now-lastPuff<600) return; lastPuff=now; topPuff(6); });
 }
 function send(addr){
   if(SIGNUP.provider==='sheet'){
